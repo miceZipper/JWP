@@ -3,7 +3,7 @@ Java Web Printer interface
 The initial very basic release. Just to make it work.
 
 Requirements:
-* Jakarta EE capable Web Server. I used TomEE
+* Jakarta EE capable Web Server. I used Apache TomEE 9.0
 * root rights (temprorary requirement. It has issues when using non-root account ro print)
 
 Installation:
