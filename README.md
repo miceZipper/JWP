@@ -1,15 +1,15 @@
 # JWP 0.1
-Java Web Printer interface
+Java Web Printer interface<br>
 The initial very basic release. Just to make it work.
 
-Requirements:
+### Requirements:
 * Jakarta EE capable Web Application Server. I use Apache TomEE 9.0
 * root rights (temprorary requirement. It has issues when using non-root account ro print)
 
-Installation:
+### Installation:
 * Just deploy it and run
 
-Usage:
+### Usage:
 1. Choose one of the available print methods.
    - Choose PDFbox if you got Windows. At lt least my tests worked. It uses the PDFbox library to print.
    - Choose CUPS if you got any other OS or PDFbox does not work. Its uses CUPS library.
