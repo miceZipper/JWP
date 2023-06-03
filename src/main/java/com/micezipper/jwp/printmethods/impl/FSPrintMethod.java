@@ -33,7 +33,7 @@ public class FSPrintMethod extends PrintMethod<String> {
             tempFile.deleteOnExit();
             printer = getDefaultPrinter();
             available = true;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(FSPrintMethod.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -137,11 +137,11 @@ public class FSPrintMethod extends PrintMethod<String> {
             if (system.contains("win")) {
                 exec = runtime.exec(new String[]{"cmd", "/c", cmd});
             } else if (system.contains("mac")) {
-                exec = runtime.exec(new String[]{"bash", "-c", cmd});
+                exec = runtime.exec(new String[]{"sh", "-c", cmd});
             } else if (system.contains("nix") | system.contains("nux") | system.contains("aix")) {
-                exec = runtime.exec(new String[]{"bash", "-c", cmd});
+                exec = runtime.exec(new String[]{"sh", "-c", cmd});
             } else if (system.contains("sunos")) {
-                exec = runtime.exec(new String[]{"bash", "-c", cmd});
+                exec = runtime.exec(new String[]{"sh", "-c", cmd});
             } else {
                 return null;
             }

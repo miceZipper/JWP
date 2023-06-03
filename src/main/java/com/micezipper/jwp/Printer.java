@@ -31,14 +31,17 @@ public class Printer implements Serializable {
 
     //internal usage only
     private ByteBuffer outputByteBuffer;
-    @Inject private PrintMethodFactory printMethodFactory;
+    @Inject
+    private PrintMethodFactory printMethodFactory;
 
     @PostConstruct
     public void init() {
         System.setProperty("java.awt.headless", "true");
         availalePrintMethodNames = printMethodFactory.getAvailalePrintMethodNames();
-        printMethodName = (String) availalePrintMethodNames.toArray()[0];
-        name = printMethodFactory.getPrintMethod(printMethodName).getName();
+        if (!availalePrintMethodNames.isEmpty()) {
+            printMethodName = (String) availalePrintMethodNames.toArray()[0];
+            name = printMethodFactory.getPrintMethod(printMethodName).getName();
+        }
     }
 
     public Collection<String> getAvailalePrintMethodNames() {
@@ -91,7 +94,6 @@ public class Printer implements Serializable {
         return contentType;
     }
 
-    
     public void setName(String name) {
         this.name = name;
     }
@@ -101,7 +103,7 @@ public class Printer implements Serializable {
     }
 
     public List<String> getPrinterNames() {
-        return printMethodFactory.getPrintMethod(printMethodName).getPrintersNames();
+        return printMethodName != null ? printMethodFactory.getPrintMethod(printMethodName).getPrintersNames() : null;
     }
 
 }

@@ -7,26 +7,28 @@
         <title>Java Web Printer</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:outputLabel id="noPrintMethods" value="No print methods are available!" rendered="#{empty printer.availalePrintMethodNames}"/>
+        <h:form rendered="#{not empty printer.availalePrintMethodNames}">
             <h:selectOneRadio id="printMethod" value="#{printer.printMethodName}">
                 <f:selectItems value="#{printer.availalePrintMethodNames}" />
-                <f:ajax event="change" execute="printMethod" render="printerCurrent"/>
+                <f:ajax event="change" execute="printMethod" render="printerCurrent noPrinters"/>
             </h:selectOneRadio>
             <br/>
-            <h:selectOneMenu id="printerCurrent" value="#{printer.name}" >
+            <h:outputLabel id="noPrinters" value="No printers are available for this print method!" rendered="#{empty printer.getPrinterNames()}"/>
+            <h:selectOneMenu id="printerCurrent" value="#{printer.name}" rendered="#{not empty printer.getPrinterNames()}">
                 <f:selectItems value="#{printer.getPrinterNames()}" />
                 <f:ajax event="change" execute="printerCurrent" />
             </h:selectOneMenu><br/>
         </h:form>
-        <h:form enctype="multipart/form-data">
+        <h:form enctype="multipart/form-data" rendered="#{not empty printer.getPrinterNames()}">
             <h:inputFile id="inputFile" value="#{printer.inputFile}" >
                 <f:ajax event="change" execute="inputFile" render="outputMIME"/>
             </h:inputFile>
 
         </h:form>
-        <h:outputLabel id="outputMIME" value="#{printer.contentType}"/>
+        <h:outputLabel id="outputMIME" value="#{printer.contentType}" rendered="#{not empty printer.getPrinterNames()}"/>
         <br/>
-        <h:form>
+        <h:form rendered="#{not empty printer.getPrinterNames()}">
             <h:commandButton value="Print" action="#{printer.print()}">
                 <f:ajax event="click" render="outputMIME"/>
             </h:commandButton>
